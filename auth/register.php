@@ -33,7 +33,7 @@ if (isset($_POST['register'])) { //
 
         $query = "
             SELECT id
-            FROM users
+            FROM Socio
             WHERE username = :username
         ";
         
@@ -47,7 +47,7 @@ if (isset($_POST['register'])) { //
             $msg = 'Username già in uso %s';
         } else {
             $query = "
-                INSERT INTO users
+                INSERT INTO Socio(id,username,password,livello)
                 VALUES (0, :username, :password, :livello)
             ";
         

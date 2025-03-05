@@ -2,7 +2,7 @@
 $config = [
     'db_engine' => 'mysql',
     'db_host' => '127.0.0.1',
-    'db_name' => 'esempio',
+    'db_name' => 'club',
     'db_user' => 'root',
     'db_password' => 'mariadb',
 ];

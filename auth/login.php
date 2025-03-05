@@ -16,7 +16,7 @@ if (isset($_POST['login'])) {
     } else {
         $query = "
             SELECT username, password, livello
-            FROM users
+            FROM Socio
             WHERE username = :username
         ";
         

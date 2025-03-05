@@ -2,16 +2,18 @@
 <html>
     <head>
         <title>Login</title>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap">
-        <link rel="stylesheet" href="/css/style.css">
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="login.css">
     </head>
     <body>
-        <form method="post" action="/auth/login.php">
-            <h1>Login</h1>
-            <input type="text" id="username" placeholder="Username" name="username" required>
-            <input type="password" id="password" placeholder="Password" name="password" required>
-            <button type="submit" name="login">Accedi</button>
-        </form>
-        <a href="../index.html">torna indietro</a>;
+        <div>
+            <form method="post" action="/auth/login.php">
+                <h1>Login Club</h1>
+                <input type="text" id="username" placeholder="Username" name="username" required>
+                <input type="password" id="password" placeholder="Password" name="password" required>
+                <button type="submit" name="login">Accedi</button>
+            </form>
+        <a href="../index.html">torna indietro</a>
+    </div>
     </body>
 </html>
