@@ -41,34 +41,35 @@ if (isset($_SESSION['session_id'])) {
 <html>
     <head>
         <title>Registrazione</title>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap">
-        <link rel="stylesheet" href="/css/style.css">
+        <link rel="stylesheet" href="login.css">
     </head>
     <body>
-        <form method="post" action="/auth/register.php">
-            <h1>Registrazione</h1>
-            <input type="text" id="username" placeholder="Username" name="username" maxlength="50" required>
-            <input type="password" id="password" placeholder="Password" name="password" required>
-            <?php    
-               //logica per "stampare" o meno il campo select
-                if ($livello>7) {  //sono almeno SU stampo la scelta livello 
-                    $scelte='<label for="livello">Livello utente</label>
-                    <select name="livello" id="livello">
-                    <option value=0>Ospite</option>
-                    <option value=1>Utente base</option>
-                    <option value=7>superuser</option>s
-                    <option value=8>admin</option>
-                    <option value=9>root</option>
-                    </select>';
-                } else { 
-                    $scelte=$scelte='<label for="livello">Livello utente</label>
-                    <select name="livello" id="livello">
-                    <option value=0>Ospite</option>
-                    </select>';;
-                }
-                printf("%s",$scelte);
-            ?>
-            <button type="submit" name="register">Registrati</button>
-        </form>
+        <div>
+            <form method="post" action="/auth/register.php">
+                <h1>Registrazione</h1>
+                <input type="text" id="username" placeholder="Username" name="username" maxlength="50" required>
+                <input type="password" id="password" placeholder="Password" name="password" required>
+                <?php    
+                //logica per "stampare" o meno il campo select
+                    if ($livello>7) {  //sono almeno SU stampo la scelta livello 
+                        $scelte='<label for="livello">Livello utente</label>
+                        <select name="livello" id="livello">
+                        <option value=0>Ospite</option>
+                        <option value=1>Utente base</option>
+                        <option value=7>superuser</option>s
+                        <option value=8>admin</option>
+                        <option value=9>root</option>
+                        </select>';
+                    } else { 
+                        $scelte=$scelte='<label for="livello">Livello utente</label>
+                        <select name="livello" id="livello">
+                        <option value=0>Ospite</option>
+                        </select>';;
+                    }
+                    printf("%s",$scelte);
+                ?>
+                <button type="submit" name="register">Registrati</button>
+            </form>
+        </div>
     </body>
 </html>
