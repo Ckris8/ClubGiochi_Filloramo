@@ -1,9 +1,11 @@
 <?php
 session_start();
-
+?>
+<link rel="stylesheet" href="../index.css">
+<?php
 if (isset($_SESSION['session_id'])) {
     // Connessione al database
-    require_once("../db/database.php");
+    require_once("db/database.php");
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Recupera i dati dal form
@@ -22,34 +24,31 @@ if (isset($_SESSION['session_id'])) {
             $listaPartecipanti = implode(", ", $partecipanti);
             $listaVincitori = implode(", ", $vincitori);
 
-            $sql_insert = "INSERT INTO incontro (ListaPartecipanti, ListaVincitori, Data_incontro) VALUES (?, ?, ?)";
-            $stmt_insert = $conn->prepare($sql_insert);
-            $stmt_insert->bind_param("sss", $listaPartecipanti, $listaVincitori, $data_incontro);
+            $sql_insert = "INSERT INTO Incontro (ListaPartecipanti, ListaVincitori, Data_incontro) VALUES (?, ?, ?)";
+            $stmt_insert = $pdo->prepare($sql_insert);
+            $stmt_insert->execute([$listaPartecipanti, $listaVincitori, $data_incontro]);
 
-            if ($stmt_insert->execute()) {
-                echo "Incontro registrato con successo.";
-            } else {
-                echo "Errore durante la registrazione dell'incontro.";
-            }
+            echo "Incontro registrato con successo.";
+            echo '<br><a href="auth/dashboard.php"><button>Torna home</button></a>';
         }
     } else {
         // Recupera i soci dalla tabella Soci
-        $sql_soci = "SELECT id, username FROM Soci";
-        $result_soci = $conn->query($sql_soci);
+        $sql_soci = "SELECT id, username FROM Socio";
+        $stmt_soci = $pdo->query($sql_soci);
 
-        if ($result_soci->num_rows > 0) {
+        if ($stmt_soci->rowCount() > 0) {
             echo '<h2>Registra un incontro</h2>';
             echo '<form method="POST" action="incontro.php">';
             echo '<label>Data dell\'incontro:</label> <input type="date" name="data_incontro" required><br><br>';
 
             echo '<label>Seleziona i partecipanti:</label><br>';
-            while ($row = $result_soci->fetch_assoc()) {
+            while ($row = $stmt_soci->fetch(PDO::FETCH_ASSOC)) {
                 echo '<input type="checkbox" name="partecipanti[]" value="' . htmlspecialchars($row['username']) . '"> ' . htmlspecialchars($row['username']) . '<br>';
             }
 
             echo '<br><label>Seleziona i vincitori:</label><br>';
-            $result_soci->data_seek(0); // Resetta il puntatore del risultato
-            while ($row = $result_soci->fetch_assoc()) {
+            $stmt_soci->execute(); // Re-esegui la query per resettare il puntatore
+            while ($row = $stmt_soci->fetch(PDO::FETCH_ASSOC)) {
                 echo '<input type="checkbox" name="vincitori[]" value="' . htmlspecialchars($row['username']) . '"> ' . htmlspecialchars($row['username']) . '<br>';
             }
 
@@ -59,8 +58,6 @@ if (isset($_SESSION['session_id'])) {
             echo "Nessun socio trovato.";
         }
     }
-
-    $conn->close();
 } else {
     printf("Effettua il %s per accedere all'area riservata", '<a href="login.html">login</a>');
 }

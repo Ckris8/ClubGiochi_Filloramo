@@ -1,62 +1,128 @@
+/* Stile generale */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
+    background-color: #121212; /* Sfondo scuro per un look moderno */
+    color: #e0e0e0; /* Testo chiaro */
     margin: 0;
-    padding: 20px;
-    background-color: #f4f4f4;
-    text-align: left;
-}
-
-h1 {
-    color: #003366;
-}
-
-h2 {
-    color: #005599;
-}
-
-div {
-    padding: 10px 0;
-}
-
-h3 {
-    color: #004488;
-}
-
-ul {
-    list-style: none;
     padding: 0;
 }
 
-li {
-    margin: 5px 0;
+/* Titoli */
+h1, h2, h3 {
+    color: #ff4500; /* Colore arancione brillante per i titoli */
+    text-align: center;
+    text-shadow: 2px 2px 5px #000; /* Effetto ombra */
 }
 
+/* Tabelle */
+table {
+    width: 90%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: #1f1f2e; /* Sfondo scuro per le tabelle */
+    color: #ffffff;
+    border: 2px solid #444; /* Bordo della tabella */
+}
+
+table th, table td {
+    border: 1px solid #555;
+    padding: 12px;
+    text-align: center;
+    font-size: 16px;
+}
+
+table th {
+    background-color: #ff4500; /* Colore arancione per l'intestazione */
+    color: #ffffff; /* Testo bianco */
+    text-transform: uppercase;
+}
+
+table tr:nth-child(even) {
+    background-color: #29293d; /* Riga alternata */
+}
+
+table tr:hover {
+    background-color: #444466; /* Colore al passaggio del mouse */
+}
+
+/* Pulsanti */
+button {
+    background-color: #ff4500; /* Colore arancione brillante */
+    color: #ffffff;
+    border: none;
+    padding: 12px 25px;
+    margin: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Effetto ombra */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background-color: #ff6347; /* Colore più chiaro al passaggio del mouse */
+    transform: scale(1.05); /* Leggero ingrandimento */
+}
+
+/* Link */
 a {
+    color: #ffcc00; /* Colore giallo brillante per i link */
     text-decoration: none;
-    color: #0077cc;
     font-weight: bold;
 }
 
 a:hover {
-    color: #005599;
+    text-decoration: underline;
+    color: #ff4500; /* Cambia colore al passaggio del mouse */
 }
 
-/* Dashboard link styling */
-.dashboard-link {
-    color: #005599;
-    font-weight: bold;
+/* Moduli */
+form {
+    width: 60%;
+    margin: 20px auto;
+    padding: 25px;
+    background-color: #1f1f2e; /* Sfondo scuro per i moduli */
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /* Effetto ombra */
 }
 
-.dashboard-link:hover {
-    color: #003366;
+input[type="text"], input[type="number"], input[type="date"], select {
+    width: calc(100% - 20px);
+    padding: 12px;
+    margin: 10px 0;
+    border: 2px solid #444;
+    border-radius: 8px;
+    background-color: #29293d; /* Sfondo scuro per gli input */
+    color: #ffffff;
+    font-size: 16px;
 }
 
-/* Logout link styling */
-.logout {
-    color: red;
-    font-weight: bold;
+input[type="text"]:focus, input[type="number"]:focus, input[type="date"]:focus, select:focus {
+    border-color: #ff4500; /* Bordo arancione al focus */
+    outline: none;
+    box-shadow: 0 0 8px #ff4500; /* Effetto glow */
 }
 
-.logout:hover {
-    color: darkred;
+input[type="checkbox"] {
+    margin-right: 10px;
+    transform: scale(1.2); /* Ingrandisce i checkbox */
+}
+
+/* Effetto hover sui checkbox */
+input[type="checkbox"]:hover {
+    cursor: pointer;
+}
+
+/* Stile per messaggi */
+.message {
+    text-align: center;
+    font-size: 18px;
+    padding: 15px;
+    margin: 20px auto;
+    width: 80%;
+    border-radius: 8px;
+    background-color: #29293d; /* Sfondo scuro */
+    color: #ffcc00; /* Testo giallo */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }

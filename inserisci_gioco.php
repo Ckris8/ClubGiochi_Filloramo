@@ -1,9 +1,11 @@
 <?php
 session_start();
-
+?>
+<link rel="stylesheet" href="../index.css">
+<?php
 if (isset($_SESSION['session_id'])) {
     // Connessione al database
-    require_once("../db/database.php");
+    require_once("db/database.php");
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $nome = htmlspecialchars($_POST['nome'], ENT_QUOTES, 'UTF-8');
@@ -12,40 +14,33 @@ if (isset($_SESSION['session_id'])) {
 
         // Controlla se il gioco esiste già
         $sql_check = "SELECT copieDisp FROM Gioco WHERE nome = ?";
-        $stmt_check = $conn->prepare($sql_check);
-        $stmt_check->bind_param("s", $nome);
-        $stmt_check->execute();
-        $result_check = $stmt_check->get_result();
+        $stmt_check = $pdo->prepare($sql_check);
+        $stmt_check->execute([$nome]);
 
-        if ($result_check->num_rows > 0) {
+        if ($stmt_check->rowCount() > 0) {
             // Il gioco esiste già, aggiorna le copie
-            $row = $result_check->fetch_assoc();
+            $row = $stmt_check->fetch(PDO::FETCH_ASSOC);
             $copieDisp = $row['copieDisp'];
 
             if ($copieDisp >= 3) {
                 echo "Errore: Non è possibile avere più di 3 copie dello stesso gioco.";
+                echo '<br><a href="auth/dashboard.php"><button>Torna home</button></a>';
             } else {
                 $copieDisp++;
                 $sql_update = "UPDATE Gioco SET copieDisp = ? WHERE nome = ?";
-                $stmt_update = $conn->prepare($sql_update);
-                $stmt_update->bind_param("is", $copieDisp, $nome);
-                if ($stmt_update->execute()) {
-                    echo "Copia aggiunta con successo.";
-                } else {
-                    echo "Errore durante l'aggiornamento delle copie.";
-                }
+                $stmt_update = $pdo->prepare($sql_update);
+                $stmt_update->execute([$copieDisp, $nome]);
+                echo "Copia aggiunta con successo.";
+                echo '<br><a href="auth/dashboard.php"><button>Torna home</button></a>';
             }
         } else {
             // Il gioco non esiste, inseriscilo
             $copieDisp = 1;
             $sql_insert = "INSERT INTO Gioco (nome, Ngiocatori, DataAcquisto_Donazione, copieDisp) VALUES (?, ?, ?, ?)";
-            $stmt_insert = $conn->prepare($sql_insert);
-            $stmt_insert->bind_param("sisi", $nome, $Ngiocatori, $DataAcquisto_Donazione, $copieDisp);
-            if ($stmt_insert->execute()) {
-                echo "Gioco inserito con successo.";
-            } else {
-                echo "Errore durante l'inserimento del gioco.";
-            }
+            $stmt_insert = $pdo->prepare($sql_insert);
+            $stmt_insert->execute([$nome, $Ngiocatori, $DataAcquisto_Donazione, $copieDisp]);
+            echo "Gioco inserito con successo.";
+            echo '<br><a href="auth/dashboard.php"><button>Torna home</button></a>';
         }
     } else {
         // Mostra il modulo per l'inserimento
@@ -56,9 +51,9 @@ if (isset($_SESSION['session_id'])) {
         echo 'Data Acquisto/Donazione: <input type="date" name="DataAcquisto_Donazione" required><br>';
         echo '<button type="submit">Inserisci Gioco</button>';
         echo '</form>';
-    }
 
-    $conn->close();
+        echo '<br><a href="auth/dashboard.php"><button>Torna home</button></a>';
+    }
 } else {
     printf("Effettua il %s per accedere all'area riservata", '<a href="login.html">login</a>');
 }
