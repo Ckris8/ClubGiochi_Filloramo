@@ -34,7 +34,7 @@ if (isset($_POST['login'])) {
             $_SESSION['session_user'] = $user['username'];
             $_SESSION['livello'] = $user['livello'];
             
-            header('Location: dashboard.php');
+            header('Location: ../dashboard.php');
             exit;
         }
     }
