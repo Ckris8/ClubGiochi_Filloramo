@@ -1,6 +1,8 @@
 <?php // creo un utente con i dati ricevuti 
 session_start(); //ripristino sessione
-
+?>
+<link rel="stylesheet" href="../css/body.css">
+<?php
 require_once("../db/database.php");
 
 if (isset($_POST['register'])) { //

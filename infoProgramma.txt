@@ -1,0 +1,42 @@
+Il sito web accede inizialmente in una sua home in due sono presenti due sezioni: accedi/registrati e Dashboard giochi
+accedi/registrati:
+inizialmente bisogna autenticarsi tramite un login se già abbiamo effettuato l'accesso precedentemente
+oppure ci registriamo inserendo un username o la password(la password sarà conservata in maniera criptata)
+
+se non effettuiamo prima l'accesso non potremmo usare tutte le funzionalità del sito
+
+Dashboard giochi:
+Dopo aver effettuato l'accesso saremo rienderizati in questa pagina
+
+contiene inanzitutto un messaggio di benvenuto contenente l'username, l'id e il livello proprio
+successivamente troviamo una lista dei giochi disponibili con numero giocatori,data acquisizione e copie disponibili
+un altra tabella che visualizza gli ultimi incontri effettuati con i partecipanti,vincitori e data incontro
+
+avremmo la possibbilità di:
+aggiungere nuovo gioco:
+possiamo donare o inserire un nuovo gioco inserendo il nome , numero giocatori e la data in cui la stiamo donando/inserendo
+se doniamo un gioco il nostro grado salirà a "Donatore"
+se il gioco è gia presente aggiungera una copia(non possono essere immagazzinare più di 3 copie identiche)
+
+chiedere un prestito:
+possiamo chiedere un prestito di un gioco, la copia verrà sottratta
+
+registrare un incontro:
+registrando un incontro con data di esso, due liste di tutti gli utenti potendo selezionare i partecipanti e se presenti in essi anche i vincitori
+visualizza ultimi incontri
+
+fare una donazione:
+inserire un importo di donazione al club, se sei un nuovo utente il tuo grado passerà a "Regolare"
+
+
+inoltre nella home è possibbile: 
+
+visualizzare il proprio profilo:
+visualizzare le proprie info all'interno della piattaforma
+inserire nuovi dati se è necessario
+gli amministratori potranno controllare le specifiche degli utenti, e poterli eleminare se non rispettate(non è possibbile eliminare amministratori)
+
+logout:
+effettuare logout profilo
+sarai reinderizzato alla pagina login
+

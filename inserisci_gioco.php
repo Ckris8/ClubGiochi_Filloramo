@@ -1,7 +1,7 @@
 <?php
 session_start();
 ?>
-<link rel="stylesheet" href="../index.css">
+<link rel="stylesheet" href="css/body.css">
 <?php
 if (isset($_SESSION['session_id'])) {
     // Connessione al database
@@ -18,9 +18,11 @@ if (isset($_SESSION['session_id'])) {
         $stmt_check->execute([$nome]);
 
         if ($stmt_check->rowCount() > 0) {
-            // Il gioco esiste già, aggiorna le copie
+            // Il gioco esiste già, aggiorna il numero di copie disponibili
             $row = $stmt_check->fetch(PDO::FETCH_ASSOC);
             $copieDisp = $row['copieDisp'];
+
+
 
             if ($copieDisp >= 3) {
                 echo "Errore: Non è possibile avere più di 3 copie dello stesso gioco.";
@@ -34,19 +36,29 @@ if (isset($_SESSION['session_id'])) {
                 echo '<br><a href="auth/dashboard.php"><button>Torna home</button></a>';
             }
         } else {
-            // Il gioco non esiste, inseriscilo
+            // inserrimento del nuovo gioco
             $copieDisp = 1;
             $sql_insert = "INSERT INTO Gioco (nome, Ngiocatori, DataAcquisto_Donazione, copieDisp) VALUES (?, ?, ?, ?)";
             $stmt_insert = $pdo->prepare($sql_insert);
             $stmt_insert->execute([$nome, $Ngiocatori, $DataAcquisto_Donazione, $copieDisp]);
             echo "Gioco inserito con successo.";
-            echo '<br><a href="auth/dashboard.php"><button>Torna home</button></a>';
         }
+
+        // Controlla il livello dell'utente e aggiorna se necessario
+        if ($_SESSION['livello'] == 0 || $_SESSION['livello'] == 1) {
+            $sql_update_livello = "UPDATE Socio SET livello = 3 WHERE username = ?";
+            $stmt_update_livello = $pdo->prepare($sql_update_livello);
+            $stmt_update_livello->execute([$_SESSION['session_user']]);
+            $_SESSION['livello'] = 3; // Aggiorna anche la sessione
+            echo "<p>Congratulazioni! Sei passato al livello 3 grazie all'inserimento del gioco.</p>";
+        }
+
+        echo '<br><a href="auth/dashboard.php"><button>Torna home</button></a>';
     } else {
         // Mostra il modulo per l'inserimento
         echo '<h2>Inserisci un nuovo gioco</h2>';
         echo '<form method="POST" action="inserisci_gioco.php">';
-        echo 'Nome: <input type="text" name="nome" required><br>';
+        echo 'Nome gioco: <input type="text" name="nome" required><br>';
         echo 'Numero Giocatori: <input type="number" name="Ngiocatori" required><br>';
         echo 'Data Acquisto/Donazione: <input type="date" name="DataAcquisto_Donazione" required><br>';
         echo '<button type="submit">Inserisci Gioco</button>';

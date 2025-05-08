@@ -1,7 +1,7 @@
 <?php
 session_start();
 ?>
-<link rel="stylesheet" href="../index.css">
+<link rel="stylesheet" href="../css/body.css">
 <?php
 if (isset($_SESSION['session_id'])) {
     $session_user = htmlspecialchars($_SESSION['session_user'], ENT_QUOTES, 'UTF-8');

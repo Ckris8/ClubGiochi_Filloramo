@@ -1,7 +1,7 @@
 <?php
 session_start();
 ?>
-<link rel="stylesheet" href="index.css">
+<link rel="stylesheet" href="css/body.css">
 <?php
 if (isset($_SESSION['session_id'])) {
     require_once("db/database.php");
@@ -16,6 +16,14 @@ if (isset($_SESSION['session_id'])) {
             $sql_donazione = "UPDATE Socio SET Quota = Quota + ? WHERE username = ?";
             $stmt_donazione = $pdo->prepare($sql_donazione);
             $stmt_donazione->execute([$donazione, $session_user]);
+
+            // Controlla se l'utente è di livello 0 e ha donato almeno 5 euro
+            if ($livello == 0 && $donazione >= 5) {
+                $sql_aggiorna_livello = "UPDATE Socio SET livello = 1 WHERE username = ?";
+                $stmt_aggiorna_livello = $pdo->prepare($sql_aggiorna_livello);
+                $stmt_aggiorna_livello->execute([$session_user]);
+                echo "<p>Congratulazioni! Sei passato al livello 1 grazie alla tua donazione.</p>";
+            }
 
             echo "<p>Grazie per la tua donazione di €" . htmlspecialchars($donazione) . "!</p>";
             echo '<br><a href="auth/dashboard.php"><button>Torna alla Dashboard</button></a>';
