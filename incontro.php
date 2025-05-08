@@ -57,6 +57,26 @@ if (isset($_SESSION['session_id'])) {
         } else {
             echo "Nessun socio trovato.";
         }
+
+        // Recupera gli ultimi incontri registrati
+        echo '<h2>Ultimi incontri registrati</h2>';
+        $sql_incontri = "SELECT ListaPartecipanti, ListaVincitori, Data_incontro FROM Incontro ORDER BY Data_incontro DESC LIMIT 10";
+        $stmt_incontri = $pdo->query($sql_incontri);
+
+        if ($stmt_incontri->rowCount() > 0) {
+            echo '<table border="1">';
+            echo '<tr><th>Partecipanti</th><th>Vincitori</th><th>Data</th></tr>';
+            while ($row = $stmt_incontri->fetch(PDO::FETCH_ASSOC)) {
+                echo '<tr>';
+                echo '<td>' . htmlspecialchars($row['ListaPartecipanti']) . '</td>';
+                echo '<td>' . htmlspecialchars($row['ListaVincitori']) . '</td>';
+                echo '<td>' . htmlspecialchars($row['Data_incontro']) . '</td>';
+                echo '</tr>';
+            }
+            echo '</table>';
+        } else {
+            echo "Nessun incontro registrato.";
+        }
     }
 } else {
     printf("Effettua il %s per accedere all'area riservata", '<a href="login.html">login</a>');

@@ -1,0 +1,7 @@
+Accesso amministratore: 
+username: admin1
+password: admin2025
+
+accesso utente ospite:
+username: ciao
+password : ciao1234
